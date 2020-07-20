@@ -41,6 +41,53 @@ namespace Amazon
 
         }
 
+        public int WaterSupplyProblem(Boolean[] blockcities)
+        {
+            int max = 0;
+            for(int i=0; i < Vertices; i++)
+            {
+                max = Math.Max(WSPBFS(i, blockcities), max);
+            }
+            
+            return max+1;
+        }
+
+        public int WSPBFS(int start, Boolean[] blockcities)
+        {
+            if (blockcities[start]) 
+                return 0;
+
+            bool[] visited = new bool[Vertices];
+            Queue<int> queue = new Queue<int>();
+            int max = 0;
+            visited[start] = true;
+            queue.Enqueue(start);
+
+            while (queue.Count != 0)
+            {
+                start = queue.Dequeue();
+                Console.WriteLine("next->" + start);
+                max++;
+                //Get all the adjacent vaertices of start
+                foreach (var Item in AdjacencyList[start])
+                {
+                    if (!visited[Item] && !blockcities[Item])
+                    {
+                        visited[Item] = true;
+                        queue.Enqueue(Item);
+                        
+                    }
+                    
+                }
+
+            }
+            return max;
+        }
+
+
+
+
+        //BFS uses Queue as Base
         public void BFS(int start)
         {
             bool[] visited = new bool[Vertices];
@@ -48,13 +95,13 @@ namespace Amazon
             visited[start] = true;
             queue.Enqueue(start);
 
-            while (queue.Count!=0)
+            while (queue.Count != 0)
             {
                 start = queue.Dequeue();
                 Console.WriteLine("next->" + start);
 
                 //Get all the adjacent vaertices of start
-                foreach(var Item in AdjacencyList[start])
+                foreach (var Item in AdjacencyList[start])
                 {
                     if (!visited[Item])
                     {
@@ -65,7 +112,7 @@ namespace Amazon
 
             }
         }
-
+        //DFS uses Stack as Base
         public void DFS(int start)
         {
 
