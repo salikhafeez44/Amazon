@@ -7,12 +7,7 @@ namespace Amazon
 {
     public class AmazonSolution
     {
-        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
-        {
 
-
-            return 0;
-        }
 
         public int LengthOfLongestSubstring(string s)
         {
